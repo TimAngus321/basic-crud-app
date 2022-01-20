@@ -8,6 +8,11 @@
 
 - If an existing product is deleted from the Rails App it is also deleted in Shopify
 
+## Deployment:
+
+The app has been deployed to Heroku and can be found here: [Shopify Crud App](https://shopify-crud-products-app.herokuapp.com/)
+
+
 ## To install:
 
 ```
