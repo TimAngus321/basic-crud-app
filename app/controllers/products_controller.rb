@@ -55,8 +55,22 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+
+    # Find product to update
+    update_product = ShopifyAPI::Product.find(:all,:params => {:title => @product.title})
+    puts "find_product id: #{update_product.first.id}"
+
+
     respond_to do |format|
       if @product.update(product_params)
+
+        # Update details of product 
+        update_product.first.title = product_params[:title]
+        update_product.first.body_html = product_params[:description]
+        update_product.first.images = ["src": "#{product_params[:image]}"]
+        update_product.first.variants = [{"price": "#{product_params[:price]}"}]
+        update_product.first.save
+
         format.html { redirect_to product_url(@product), notice: "Product was successfully updated." }
         format.json { render :show, status: :ok, location: @product }
       else
