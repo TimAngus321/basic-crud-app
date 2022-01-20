@@ -1,3 +1,12 @@
+require 'shopify_api'
+require 'rest-client'
+
+
+shop_url = "https://#{ENV['API_KEY']}:#{ENV['PASSWORD']}@#{ENV['SHOP_NAME']}.myshopify.com"
+ShopifyAPI::Base.site = shop_url
+ShopifyAPI::Base.api_version = '2021-01'
+shop = ShopifyAPI::Shop.current
+puts "The shop url var: #{shop_url}"
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
@@ -23,6 +32,15 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+
+    # Create a new product in Shopify
+    new_product = ShopifyAPI::Product.new(
+      :title => @product.title, 
+      :body_html => @product.description,
+      :images => ["src": "#{@product.image}"],
+      :variants => [{"price": "#{@product.price}"}],
+      )
+      new_product.save
 
     respond_to do |format|
       if @product.save
@@ -50,6 +68,13 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1 or /products/1.json
   def destroy
+
+    # Delete a product in Shopify 
+    product_delete = ShopifyAPI::Product.find(:all,:params => {:title => @product.title})
+    puts "This is the product in Shopify to be deleted: #{product_delete}"
+    ShopifyAPI::Product.delete(product_delete.first.id)
+
+
     @product.destroy
 
     respond_to do |format|
