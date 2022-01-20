@@ -1,24 +1,24 @@
-# README
+### Shopify App Trial Task
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Shopify App Trial Task performs the following tasks:
 
-Things you may want to cover:
+- When a product is created in the Rails app it is also created in Shopify
 
-* Ruby version
+- When an existing product is update in the Rails App it is also updated in Shopify
 
-* System dependencies
+- If an existing product is deleted from the Rails App it is also deleted in Shopify
 
-* Configuration
+## To install:
 
-* Database creation
+```
+git clone https://github.com/TimAngus321/basic-crud-app.git
+```
 
-* Database initialization
+```
+bundle install
+rails db:create
+rails db:migrage
+rails db:seed
+```
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
