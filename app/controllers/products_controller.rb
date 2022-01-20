@@ -5,7 +5,6 @@ require 'rest-client'
 shop_url = "https://#{ENV['API_KEY']}:#{ENV['PASSWORD']}@#{ENV['SHOP_NAME']}.myshopify.com"
 ShopifyAPI::Base.site = shop_url
 ShopifyAPI::Base.api_version = '2021-01'
-shop = ShopifyAPI::Shop.current
 puts "The shop url var: #{shop_url}"
 
 class ProductsController < ApplicationController
