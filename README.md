@@ -22,7 +22,7 @@ git clone https://github.com/TimAngus321/basic-crud-app.git
 ```
 bundle install
 rails db:create
-rails db:migrage
+rails db:migrate
 rails db:seed
 ```
 
